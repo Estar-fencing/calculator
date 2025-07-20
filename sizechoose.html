@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>eStar Fencing Quotation</title>
+  <style>
+    body { margin:0; background:#f8f9fb; font-family:Arial,sans-serif; }
+    .main-box { max-width:900px; margin:38px auto; background:#fff; border-radius:16px; box-shadow:0 3px 20px #0001; padding:34px 36px 42px 36px; }
+    h2 { color:#4c98fc; text-align:center; margin-bottom:32px; font-size:2.2rem;}
+    .subtitle { margin:25px 0 11px 0; font-size:1.13rem; font-weight:600; color:#2a2a2a;}
+    .section { margin-bottom:28px; }
+    .flex-row { display:flex; gap:20px; align-items:center; }
+    .btn-toggle, .motor-btn { border:2.1px solid #ccc; background:#f8f8fd; padding:10px 23px; border-radius:8px; font-size:17px; cursor:pointer; transition:.2s; min-width:130px; }
+    .btn-toggle.selected, .motor-btn.selected { border:2.1px solid #ff9800; background:#fff8ed; }
+    .btn-toggle:not(.selected):hover, .motor-btn:not(.selected):hover { border-color:#60a6fb; }
+    .input-num { border:1.3px solid #bbb; border-radius:5px; width:75px; font-size:16px; padding:5px 8px; margin:0 6px; }
+    .input-num:disabled { background:#eee; }
+    .plusminus-row { display:flex; align-items:center; gap:18px; margin:10px 0;}
+    .pm-btn { background:#f3f3f3; color:#3a3a3a; border:none; border-radius:7px; font-size:1.5rem; width:34px; height:34px; cursor:pointer; transition:.17s; }
+    .pm-btn:active { background:#e0e7f5;}
+    .motor-row { display:flex; gap:26px; margin:18px 0;}
+    .motor-btn { font-size:15.8px; padding:11px 22px; min-width:135px; white-space:nowrap;}
+    .motor-btn.selected { border-color:#ff9800; background:#fff5e0;}
+    .motor-label { font-weight:600; font-size:1.1em; min-width:160px; margin-right:24px; }
+    .next-row { display:flex; justify-content:center; gap:38px; margin:45px 0 0 0;}
+    .main-btn { min-width:115px; font-size:16px; padding:12px 0; border-radius:8px; border:none; cursor:pointer;}
+    .btn-default { background:#ebebeb; color:#555;}
+    .btn-blue { background:#4c98fc; color:#fff;}
+    .openlen-txt { font-size:13px; color:#777; margin-left:12px;}
+    @media(max-width:1100px){.main-box{max-width:99vw; padding:2vw;}}
+    @media(max-width:650px){.flex-row,.motor-row{flex-direction:column;align-items:flex-start;gap:10px;}}
+  </style>
+</head>
+<body>
+  <div class="main-box">
+    <h2>eStar Fencing Quotation</h2>
+    <div id="heightSection"></div>
+    <div id="fenceSection"></div>
+    <div id="smallgateSection"></div>
+    <div id="slidingSection"></div>
+    <div id="swingSection"></div>
+    <div id="slidingMotorSection"></div>
+    <div id="swingMotorSection"></div>
+    <div class="next-row">
+      <button class="main-btn btn-default" id="btnDefault">Default</button>
+      <button class="main-btn btn-blue" id="btnBack">Back</button>
+      <button class="main-btn btn-blue" id="btnNext">Next</button>
+    </div>
+  </div>
+  <script src="sizechoose-fence.js"></script>
+  <script src="sizechoose-Small.js"></script>
+  <script src="sizechoose-Sliding.js"></script>
+  <script src="sizechoose-Swing.js"></script>
+  <script src="sizechoose-main.js"></script>
+</body>
+</html>

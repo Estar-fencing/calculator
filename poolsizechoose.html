@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>eStar Pool Fencing Quotation</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <style>
+        body { font-family: Roboto, Arial, sans-serif; margin: 0; padding: 0; background: #f6f7fb; }
+        .container { width: 920px; margin: 40px auto; background: #fff; border-radius: 16px; box-shadow: 0 6px 24px #ccd6ee40; padding: 32px; }
+        h1 { color: #4ea3ff; font-size: 2.3rem; margin-top: 0; margin-bottom: 24px; font-weight: 700;}
+        h2 { margin: 32px 0 14px 0; font-size: 1.12rem; font-weight: bold;}
+        .step-label { font-weight: bold; color: #555; }
+        .btn { border: none; border-radius: 8px; padding: 7px 22px; font-size: 1rem; cursor: pointer; margin-right: 10px; transition: box-shadow .16s;}
+        .btn-default { background: #ededed; color: #999; }
+        .btn-main { background: #4ea3ff; color: #fff; }
+        .btn-calc { background: #ff9027; color: #fff; }
+        .btn-selected { border: 2px solid #ff9027 !important; box-shadow: 0 0 0 2px #ffe6c7; }
+        .btn-outline { background: #f5f7fb; color: #666; border: 2px solid #e5e7ef; }
+        .input-row { margin-bottom: 16px; display: flex; align-items: center; }
+        .input-row label { width: 170px; }
+        input[type="number"], select, input[type="text"] {
+            border: 1px solid #d4d6dd; border-radius: 6px; padding: 5px 10px; font-size: 1rem; width: 90px; margin-right: 10px; outline: none;
+        }
+        input[type="number"].qty { width: 55px; }
+        input[type="text"].long { width: 220px; }
+        .section { border-bottom: 1px solid #eaeaea; padding-bottom: 18px; margin-bottom: 18px;}
+        .table-box { overflow-x: auto; margin-bottom: 18px;}
+        table { border-collapse: collapse; width: 100%; margin-top: 8px; background: #fcfcfd;}
+        th, td { border: 1px solid #e1e4ec; padding: 7px 6px; font-size: 0.97rem; text-align: left; }
+        th { background: #f5f8ff; font-weight: 600;}
+        .table-btn { font-size: 1.2rem; width: 28px; height: 28px; border-radius: 7px;}
+        .success { color: #1bbb70; margin-left: 18px; font-weight: 600;}
+        .fail { color: #ee4c5c; margin-left: 18px; font-weight: 600;}
+        .divider { height: 22px; }
+        .hidden { display: none; }
+        .mb12 { margin-bottom: 12px;}
+        .mt6 { margin-top: 6px;}
+        .mt0 { margin-top: 0;}
+        .flex { display: flex; align-items: center;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>eStar Pool Fencing Quotation</h1>
+
+        <div id="poolstep1"></div>
+        <div id="poolstep2"></div>
+        <div id="pooltable"></div>
+
+        <div id="poolstepMain"></div>
+    </div>
+    <script src="poolsizechoose-step1.js"></script>
+    <script src="poolsizechoose-step2.js"></script>
+    <script src="poolsizechoose-table.js"></script>
+    <script src="poolsizechoose-main.js"></script>
+</body>
+</html>

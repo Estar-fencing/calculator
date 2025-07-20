@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quotation</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#fff; margin:0; padding:0; }
+    .a4 { width:800px; margin:40px auto; background:#fff; padding:40px 50px 60px 50px; box-shadow:0 2px 16px #bbb; }
+    table { border-collapse:collapse; }
+    .bold { font-weight:bold; }
+    .center { text-align:center; }
+    .right { text-align:right; }
+    .v-middle { vertical-align:middle; }
+    .logo-cell { width:300px; text-align:center; vertical-align:middle; }
+    .logo-img { max-width:200px; max-height:90px; }
+    .line { border-bottom:1px solid #555; margin:18px 0; }
+    .s14 { font-size:14px; }
+    .s16 { font-size:16px; }
+    .s18 { font-size:18px; }
+    .s13 { font-size:13px; }
+    .no-border { border:none; }
+    .remark-table { border:1px solid #444; margin-top:30px; width:100%; }
+    .summary-table { margin: 35px 0 0 0; width:100%; }
+    .summary-pic { width:300px; max-height:180px; object-fit:contain; border:1px solid #ddd; }
+    .btn-area { margin:35px 0 0 0; text-align:center;}
+    .btn { padding:9px 30px; font-size:15px; border-radius:6px; border:none; margin:0 12px; cursor:pointer; background:#235fd6; color:#fff;}
+    .btn:hover { background:#1677e4;}
+    @media print { .btn-area{ display:none;} .a4{box-shadow:none;} }
+  </style>
+</head>
+<body>
+<div class="a4">
+  <div id="quotationTitleArea"></div>
+  <div id="quotationTableArea"></div>
+  <div id="quotationExtraArea"></div>
+  <div class="btn-area">
+    <button class="btn" onclick="window.print()">Print</button>
+    <button class="btn" onclick="window.location.href='CustomizeTable.html'">Back</button>
+  </div>
+</div>
+<script src="quotation-title.js"></script>
+<script src="quotation-table.js"></script>
+<script src="quotation-extra.js"></script>
+<script>
+  // 假定其他页面已存入localStorage
+  var paramsData = JSON.parse(localStorage.getItem('paramsData') || '{}');
+  var installationChooseData = JSON.parse(localStorage.getItem('installationChooseData') || '{}');
+  var StylechooseData = JSON.parse(localStorage.getItem('StylechooseData') || '{}');
+  var sizechooseData = JSON.parse(localStorage.getItem('sizechooseData') || '{}');
+  var CustomizeTableData = JSON.parse(localStorage.getItem('CustomizeTableData') || '{}');
+
+  // 依次渲染所有区域
+  renderQuotationTitle();
+  renderQuotationTable();
+  renderQuotationExtra();
+</script>
+</body>
+</html>

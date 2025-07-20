@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>eStar Fencing Quotation</title>
+  <meta name="viewport" content="width=440">
+  <style>
+    body { background: #f6fbff; font-family: Arial,sans-serif; margin:0;}
+    .container { width: 410px; max-width: 98vw; margin: 36px auto 0 auto; background: #fff; border-radius: 18px; box-shadow: 0 4px 22px #0001; padding: 32px 30px 32px 30px;}
+    h1 { text-align:center; color:#2186d4; font-size: 2.2em; font-weight: 700; margin: 0 0 36px 0;}
+    .row { margin-bottom: 26px; }
+    label { display:block; font-size:1.09em; font-weight:600; margin-bottom:7px; color:#333;}
+    input[type=text],input[type=email],input[type=tel] {
+      width: 100%; font-size: 1em; border:1.4px solid #b6d1e7; border-radius:8px; padding: 11px 13px; box-sizing: border-box;
+      background: #fafdff; transition: border-color .15s;
+    }
+    input:focus { border-color: #2196f3; outline: none; }
+    .err { color: #dc2626; font-size: 1em; margin-top: 7px;}
+    .btn-row { text-align:center; margin-top:36px; }
+    .next-btn {
+      background:#2092e6; color:#fff; border:none; font-size:1.35em; font-weight:bold;
+      border-radius: 27px; padding:18px 70px; cursor:pointer; letter-spacing:1px; box-shadow:0 2px 10px #0001; transition: background 0.18s;
+    }
+    .next-btn:active { background:#155b9c;}
+    @media (max-width:470px) {
+      .container { width:99vw; padding:4vw 2vw;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>eStar Fencing Quotation</h1>
+    <div class="row">
+      <label for="name">Name<span style="color:#f66;">*</span></label>
+      <input type="text" id="name" maxlength="80" placeholder="Please Enter your name" autocomplete="off">
+      <div class="err" id="err-name"></div>
+    </div>
+    <div class="row">
+      <label for="phone">Phone number<span style="color:#f66;">*</span></label>
+      <input type="text" id="phone" maxlength="80" placeholder="Please Enter your Phone number" autocomplete="off">
+      <div class="err" id="err-phone"></div>
+    </div>
+    <div class="row">
+      <label for="email">E-mail<span style="color:#f66;">*</span></label>
+      <input type="text" id="email" maxlength="80" placeholder="Please Enter your E-mail here" autocomplete="off">
+      <div class="err" id="err-email"></div>
+    </div>
+    <div class="row">
+      <label for="address">Address</label>
+      <input type="text" id="address" maxlength="120" placeholder="Please Enter your address if need free on-site Quotation" autocomplete="off">
+    </div>
+    <div class="btn-row">
+      <button class="next-btn" id="nextBtn" type="button">Next</button>
+    </div>
+  </div>
+  <script>
+    // 默认参数（仅在首次无 localStorage 时生效）
+    const defaultParams = {
+      // 客户信息
+      Name: '', PhoneNumber: '', Email: '', Address: '',
+      // 工程参数
+      I1:120, I2:120, I3:60, fp:95, f1:130, f2:130, f3:130, f4:130, f5:130, f6:180,
+      p18:50, p21:55, p24:60, p27:70, pp13:50, pp16:60, pp19:70, pp21:80, pp24:90,
+      po18:30, po21:35, po24:40, po27:45, ppo13:35, ppo16:45, ppo19:55, ppo21:65, v5:5, v10:10, poolins:60,
+      b1:15, sm1:300, s1:300, d1:300, l1:120, mb:200, smi1:300, si1:1200, di1:1200, ai1:1200,
+      mi1:800, tr1:160, pc1:45, moi1:550, smoi1:950, am1:750, sam1:1150,rem1:50, wkey1:100, 
+      gku1:350, hh1:200, st1:10, pf12:95, pf15:198, pf18:258, cap1:2, cap2:4, pfg:95, pffc:8, polk:60, pohg:38, po18:50,
+      po21:55, po24:60, po27:70, ppo13:50, ppo16:60, ppo19:70, ppo21:80, ppo24:90, v5:5, v10:10, poolins:60, b2:13,
+
+      // 优惠券
+      CouponCode1: '888estar5',
+      CouponCode2: '666estar10',
+      CouponCode3: 'superestar15',
+      CouponCode4: 'Yesestar20'
+    };
+
+    // 初始化或读出 paramsData
+    let paramsData = {};
+    try {
+      paramsData = JSON.parse(localStorage.getItem('paramsData')) || {};
+    } catch { paramsData = {}; }
+    // 自动补全默认参数
+    paramsData = Object.assign({}, defaultParams, paramsData);
+
+    // 自动填充输入框
+    document.getElementById('name').value = paramsData.Name || '';
+    document.getElementById('phone').value = paramsData.PhoneNumber || '';
+    document.getElementById('email').value = paramsData.Email || '';
+    document.getElementById('address').value = paramsData.Address || '';
+
+    // 保存到 localStorage
+    function saveParams() {
+      localStorage.setItem('paramsData', JSON.stringify(paramsData));
+    }
+
+    // 表单校验
+    function validateEmail(email) {
+      // 简单邮件校验
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    document.getElementById('nextBtn').onclick = function() {
+      // 清除旧错误
+      document.getElementById('err-name').innerText = '';
+      document.getElementById('err-phone').innerText = '';
+      document.getElementById('err-email').innerText = '';
+      // 读取输入
+      let name = document.getElementById('name').value.trim();
+      let phone = document.getElementById('phone').value.trim();
+      let email = document.getElementById('email').value.trim();
+      let address = document.getElementById('address').value.trim();
+      let pass = true;
+      // 校验
+      if (!name) { document.getElementById('err-name').innerText = 'Please enter your name'; pass = false; }
+      if (!phone) { document.getElementById('err-phone').innerText = 'Please enter your phone number'; pass = false; }
+      if (!email) { document.getElementById('err-email').innerText = 'Please enter your email'; pass = false; }
+      else if (!validateEmail(email)) {
+        document.getElementById('err-email').innerText = 'Please enter a valid email address'; pass = false;
+      }
+      if (!pass) return;
+      // 保存到 paramsData 并存储
+      paramsData.Name = name;
+      paramsData.PhoneNumber = phone;
+      paramsData.Email = email;
+      paramsData.Address = address;
+      saveParams();
+      // 跳转
+      window.location.href = 'Stylechoose.html';
+    };
+
+    // 输入同步保存
+    ['name','phone','email','address'].forEach(id => {
+      document.getElementById(id).addEventListener('input', function() {
+        paramsData.Name = document.getElementById('name').value.trim();
+        paramsData.PhoneNumber = document.getElementById('phone').value.trim();
+        paramsData.Email = document.getElementById('email').value.trim();
+        paramsData.Address = document.getElementById('address').value.trim();
+        saveParams();
+      });
+    });
+  </script>
+</body>
+</html>

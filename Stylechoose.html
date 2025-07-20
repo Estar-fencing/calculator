@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>eStar Fencing Quotation</title>
+  <link rel="stylesheet" href="Stylechoose.css">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9fbfc; }
+    .title { text-align: center; font-size: 28px; color: #4da4e5; margin: 24px 0 18px;}
+    .section { margin: 24px auto 10px; max-width: 780px; background: #fff; border-radius: 14px; box-shadow: 0 2px 9px 1px #e2e8f0; padding: 26px 32px 18px; }
+    .subtitle { font-size: 19px; font-weight: bold; margin-bottom: 16px; }
+    .flex-row { display: flex; gap: 18px; align-items: flex-end; }
+    .img-btn, .style-btn { 
+      width: 130px; min-height: 130px; background: #f6f6f6; border: 2px solid #eee; border-radius: 16px; 
+      display: flex; flex-direction: column; justify-content: flex-start; align-items: center; margin-bottom: 0;
+      padding: 0; cursor: pointer; overflow: hidden; transition: border-color .15s;
+      position: relative;
+    }
+    .img-btn.selected, .style-btn.selected { border: 2.5px solid #fd8800; background: #fff9f2; }
+    .img-btn img, .style-btn img { width: 120px; height: 100px; object-fit: contain; margin: 0; padding: 0; border-radius: 7px 7px 0 0;}
+    .img-btn span, .style-btn span { font-size: 15px; color: #656f7a; margin: 0 0 7px 0; }
+    .style-btn span { font-size: 16px; }
+    .gap-select { margin-left: 18px; min-width: 110px; font-size: 15px; padding: 2px 10px; border-radius: 6px; border: 1px solid #d6d6d6;}
+    .color-row { display: flex; gap: 16px; margin-top: 18px;}
+    .color-btn { min-width: 85px; height: 50px; border-radius: 14px; border: 2px solid #e6e6e6; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; font-size: 17px; position: relative; transition: border-color .13s; }
+    .color-btn.selected { border: 2.5px solid #fd8800; }
+    .color-btn.black { background: #222; color: #fff; }
+    .color-btn.monument { background: #48484b; color: #fff; }
+    .color-btn.white { background: #fff; color: #222; border: 2px solid #d2d2d2; }
+    .color-btn.customize { background: linear-gradient(90deg,#f63c3c,#f8d432,#47d657,#2ecaf7,#4f49e5,#b944b7); color: #fff; }
+    .color-btn .extra { font-size: 12px; color: #ff7300; margin-top: 2px; }
+    .color-btn .custom-input { margin-top: 4px; width: 65px; font-size: 15px; border: 1px solid #bbb; border-radius: 7px; padding: 1px 5px;}
+    .btn-row { display: flex; gap: 30px; justify-content: center; margin: 42px 0 32px;}
+    .main-btn { font-size: 19px; border: none; border-radius: 10px; padding: 10px 36px; cursor: pointer; }
+    .main-btn.default { background: #e2e8f0; color: #545454;}
+    .main-btn.next { background: #4994e3; color: #fff;}
+    .main-btn.back { background: #4994e3; color: #fff;}
+    @media (max-width:900px) {
+      .section { max-width: 99vw; padding: 15px;}
+      .btn-row { gap: 13px;}
+    }
+.color-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 18px;
+  align-items: center;
+}
+.color-btn {
+  min-width: 85px;
+  height: 50px;
+  border-radius: 14px;
+  border: 2px solid #e6e6e6;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 17px;
+  position: relative;
+  transition: border-color .13s, box-shadow .15s;
+  outline: none;
+  background: #fff;
+}
+.color-btn.selected {
+  border: 2.5px solid #fd8800;
+  box-shadow: 0 0 0 2px #fd880022;
+}
+.color-btn.black { background: #222; color: #fff; }
+.color-btn.black.selected { border: 2.5px solid #fd8800; }
+.color-btn.monument { background: #48484b; color: #fff; }
+.color-btn.monument.selected { border: 2.5px solid #fd8800; }
+.color-btn.white { background: #fff; color: #222; border: 2px solid #d2d2d2; }
+.color-btn.white.selected {
+  border: 2.5px solid #fd8800 !important;
+  box-shadow: 0 0 0 4px #fd880044 !important;
+}
+.color-btn.customize {
+  background: linear-gradient(90deg,#f63c3c,#f8d432,#47d657,#2ecaf7,#4f49e5,#b944b7); 
+  color: #fff;
+}
+.color-btn.customize.selected {
+  border: 2.5px solid #fd8800;
+}
+.color-btn .extra {
+  font-size: 12px;
+  color: #ff7300;
+  margin-top: 2px;
+}
+.custom-input {
+  margin-left: 10px;
+  width: 90px;
+  border-radius: 7px;
+  font-size: 15px;
+  border: 1px solid #bbb;
+  height: 32px;
+  vertical-align: middle;
+}
+
+  </style>
+</head>
+<body>
+  <div class="title">eStar Fencing Quotation</div>
+  <div id="installationSection" class="section"></div>
+  <div id="styleSection" class="section"></div>
+  <div id="colorSection" class="section"></div>
+  <div class="btn-row">
+    <button class="main-btn default" id="btnDefault">Default</button>
+    <button class="main-btn next" id="btnNext">Next</button>
+    <button class="main-btn back" id="btnBack">Back</button>
+  </div>
+  <script src="Stylechoose-Installation.js"></script>
+  <script src="Stylechoose-Style.js"></script>
+  <script src="Stylechoose-Color.js"></script>
+</body>
+</html>

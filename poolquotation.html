@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>eStar Pool Quotation</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+  <style>
+    body { font-family: 'Roboto', Arial, sans-serif; margin:0; padding:0; background:#fff; }
+    .container { width: 800px; margin: 30px auto; background: #fff; padding: 30px 30px 50px 30px; }
+    h1 { font-size: 26px; margin: 0 0 20px 0; text-align: center; font-weight: bold;}
+    table { width: 100%; border-collapse: collapse; font-size: 14px;}
+  .top-table td { padding: 2px 4px; vertical-align: top; border: none !important;}
+    .logo-cell { width: 250px; text-align: center; }
+    .top-table .middle { width: 300px; text-align: center; font-size: 14px;}
+    .top-table .right { text-align: right; font-size: 13px; }
+    .top-table .middle .title { font-size: 16px; font-weight: bold; }
+    .top-table .middle .line { margin-bottom: 2px; }
+    .line { border-bottom: 1px solid #999; margin: 18px 0;}
+    .billto-table td { font-weight: bold; font-size: 14px; padding: 2px 4px;}
+    .product-table th, .product-table td { border: 1px solid #ccc; padding: 7px 5px; vertical-align: top; text-align: left; }
+    .product-table th { background: #f5f5f5; font-weight: bold;}
+    .summary-table td { padding: 6px 6px; }
+    .summary-table { margin-top: 20px;}
+    .summary-img { height: 200px; object-fit: contain; border:1px solid #eee;}
+    .remark-table { width: 100%; border:1px solid #999; border-collapse: collapse; margin-top:22px;}
+    .remark-table td { border:1px solid #999; font-size:13px; padding:10px 7px; vertical-align: top;}
+    .remark-table .remark-title { font-size:18px; font-weight:bold; width:80px;}
+    .remark-table .payment-title { font-weight:bold; width:80px;}
+    .buttons { margin-top:28px; text-align: right;}
+    .btn { padding: 9px 32px; border-radius:6px; font-size: 16px; border: none; background: #1270c7; color: #fff; margin-left: 14px; cursor: pointer;}
+    @media print {
+      body { background: #fff !important; }
+      .buttons { display: none !important;}
+      .container { box-shadow:none !important;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Quotation</h1>
+    <table class="top-table">
+      <tr>
+        <td class="logo-cell" rowspan="5">
+          <img src="logo.jpg" alt="Logo" style="width:250px;">
+        </td>
+        <td class="middle title" colspan="1">eStar Wholesale</td>
+        <td class="right" id="quoteNo"></td>
+      </tr>
+      <tr>
+        <td class="middle line">Add: 3 Lae St Beenleigh</td>
+        <td class="right"></td>
+      </tr>
+      <tr>
+        <td class="middle line">ABN: 34 674 044 243</td>
+        <td class="right">Eason 0450 790 119</td>
+      </tr>
+      <tr>
+        <td class="middle line">Email: Estar.eason@gmail.com</td>
+        <td class="right" id="quoteDate"></td>
+      </tr>
+    </table>
+
+    <div class="line"></div>
+
+    <table class="billto-table" style="margin-bottom:14px;">
+      <tr>
+        <td>Billto: <span id="billTo"></span></td>
+        <td>Tel: <span id="billTel"></span></td>
+      </tr>
+      <tr>
+        <td>Email: <span id="billEmail"></span></td>
+        <td>Address: <span id="billAddr"></span></td>
+      </tr>
+    </table>
+
+    <div id="productTableArea"></div>
+
+    <div id="summaryTableArea"></div>
+
+    <table class="remark-table">
+      <tr>
+        <td class="remark-title">Remark</td>
+        <td>
+          Please check all quantities, colours, finishes and descriptions are correct. Unit prices are not include GST. All quotes valid 30 days. Freight/delivery do not include rubbish removal or time required for site induction. Property in the goods shall not pass until final payment is received and cleared. Payment must be made within 7 days after project completion. Late payments will be subject to a 1% monthly penalty. Return must be in 7 days. No RETURN for second or clearance stuff.
+        </td>
+      </tr>
+      <tr>
+        <td class="payment-title">Payment to:</td>
+        <td>
+          Name: Estar Pty Ltd<br>
+          BSB: 064-793<br>
+          A/C: 1028 4966
+        </td>
+      </tr>
+    </table>
+
+    <div class="buttons">
+      <button class="btn" id="btnPrint">打印</button>
+      <button class="btn" id="btnBack">返回</button>
+    </div>
+  </div>
+
+  <script src="poolquotation-table.js"></script>
+  <script src="poolquotation-main.js"></script>
+</body>
+</html>
