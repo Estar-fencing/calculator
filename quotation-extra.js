@@ -76,23 +76,43 @@ if (pic) {
 
   // 备注和Payment带表格线（边框更明显）
 let remarkTable = `
-  <table class="remark-table" style="font-size:13px;border:1px solid #444; border-collapse:collapse; margin-top:30px; width:100%;">
+  <table class="remark-table" style="font-size:13px; line-height:1.35; border:1px solid #444; border-collapse:collapse; margin-top:30px; width:100%;">
     <tr>
-      <td style="width:170px;vertical-align:top; border:1px solid #444;" class="bold s18">Remark</td>
-      <td style="border:1px solid #444;">
-        Please check all quantities, colours, finishes and descriptions are correct. Unit prices are not include GST. All quotes valid 30 days. Freight/delivery do not include rubbish removal or time required for site induction. Property in the goods shall not pass until final payment is received and cleared. Payment must be made within 7 days after project completion. Late payments will be subject to a 1% monthly penalty. Return must be in 7 days. No RETURN for second or clearance stuff.
+      <td style="width:140px;vertical-align:top; border:1px solid #444; padding:8px 6px;" class="bold s18">Remark</td>
+      <td style="border:1px solid #444; padding:8px 10px;">
+        Please check all quantities, colours, finishes and descriptions are correct.<br>
+        Unit prices do not include GST. All quotes valid 30 days.<br>
+        Freight/delivery do not include rubbish removal or time required for site induction.<br>
+        Property in the goods shall not pass until final payment is received and cleared.<br>
+        Payment must be made within 7 days after project completion. Late payments will be subject to a 1% monthly penalty.<br>
+        Return must be in 7 days. No RETURN for second or clearance stuff.
       </td>
     </tr>
     <tr>
-      <td style="vertical-align:top;border:1px solid #444;">Payment to:</td>
-      <td style="border:1px solid #444;">
+      <td style="vertical-align:top;border:1px solid #444; padding:8px 6px;">Payment to:</td>
+      <td style="border:1px solid #444; padding:8px 10px;">
         Name: Estar Pty Ltd<br>
-        BSB: 064-793<br>
-        A/C: 1028 4966
+        BSB: 064-793&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A/C: 1028 4966
       </td>
     </tr>
   </table>
 `;
+
+// 建议给 .remark-table 补充一个响应式CSS，放在页面head里或全局CSS文件：
+/*
+<style>
+@media (max-width: 600px) {
+  .remark-table {
+    font-size: 17px !important;
+    line-height: 2 !important;
+  }
+  .remark-table td {
+    padding: 18px 10px !important;
+  }
+}
+</style>
+*/
+
 
   document.getElementById('quotationExtraArea').innerHTML = sumTable + remarkTable;
 }

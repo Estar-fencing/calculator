@@ -5,7 +5,7 @@
   <title>eStar Fencing Quotation</title>
   <style>
     body { background: #f8f9fb; margin: 0; font-family: Arial,sans-serif;}
-    .main-box { background: #fff; max-width: 840px; margin: 36px auto; border-radius: 16px; box-shadow: 0 3px 18px #0002; padding: 38px 36px 32px 36px;}
+    .main-box { background: #fff; max-width: 440px; margin: 36px auto; border-radius: 16px; box-shadow: 0 3px 18px #0002; padding: 38px 36px 32px 36px;}
     h2 { text-align: center; font-size: 2.1rem; margin-bottom: 34px; color: #3587ff;}
     .subtitle { font-weight: 500; color: #222; margin: 30px 0 15px 0; font-size: 1.13rem;}
     .section { margin-bottom: 28px;}
@@ -17,14 +17,19 @@
     .install-btn input[type="number"] { width: 80px; font-size: 15px;}
     .install-btn .default-tag { font-size: 12px; color: #888; margin-left: 7px;}
     .access-item { margin-bottom: 13px; display:flex; align-items:center;}
-    .access-label { font-weight: 500; min-width:210px;}
-    .access-input { width: 86px; font-size: 15px; padding: 3px 8px; }
+.access-label {
+  font-weight: 500;
+  /* 不要设置 width 或 min-width！*/
+  display: inline-block; /* 你可以用 inline 也可以 inline-block，按排版需求来 */
+  vertical-align: middle;
+}
+    .access-input { width: 36px; font-size: 15px; padding: 3px 8px; }
     .select-height { min-width: 90px; font-size: 15px; margin-left: 10px;}
     .upgrade-note { color: #8b5cf6; font-size: 13px; margin-left: 7px;}
     .locktype-btn { border: 1.5px solid #bbb; border-radius: 6px; padding: 7px 18px; font-size: 15px; margin-right: 18px; background: #fff; cursor: pointer;}
     .locktype-btn.selected { border: 2.2px solid #3587ff; background: #e9f2ff;}
     .default-tag { color: #888; font-size: 13px; margin-left:10px;}
-    .flex-btns { display: flex; gap: 28px; justify-content: flex-end; margin-top: 42px;}
+    .flex-btns { display: flex; gap: 28px; justify-content:  center; margin-top: 42px;}
     .btn { min-width: 110px; font-size: 16px; padding: 10px 0; border-radius: 8px; border: none; cursor: pointer;}
     .btn-default { background: #ebebeb; color: #555;}
     .btn-back { background: #4c9fff; color: #fff;}

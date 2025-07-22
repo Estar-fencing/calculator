@@ -1,0 +1,148 @@
+做一个网页quotation.html（报价展示），图片统一存放于同一目录；内容如下：
+
+生成完整版代码 html 格式，全部 JS 代码，可以本地演示的，生成4个文件；html和3个Js分开,
+第一个quotation-title.js文件：“1. 报价单标题部分：” 
+第二个quotation-table.js文件：“2.下方是7列表格，”，
+第三个quotation-extra.js文件：剩余部分
+
+读取参数格式：paramsData.Name，paramsData.PhoneNumber，paramsData.Email，paramsData.Address
+和installationChooseData.*** 等等
+
+需要在 quotation.html 的 JS 部分遍历 installationChooseData 中所有相关的 Value/Qty 字段，按详细规则，自动生成表格行。比如：
+
+各种配件/附件的数量和单价（如 IngroundPostQty、BracketQty 等）：有就渲染
+
+
+报价单页面整体布局（A4排版）适合A4纸打印，宽度800px左右。
+
+1. 报价单标题部分：
+标题：“Quotation” 居中
+
+最顶部为4行3列表格，无边框线,第一列宽度300px,第二列宽度400px（文字居中），字体大小14，行距14
+
+第1行第二列：“eStar Wholesale” 字体加粗，大小16
+
+第2行第二列：“Add: 3 Lae St Beenleigh”
+
+第3行第二列：“ABN: 34 674 044 243”
+
+第4行第二列：“Email: Estar.eason@gmail.com”
+
+第1到4行的第一列合并单元格，放公司Logo（logo.jpg，logo 大小为200px宽度）
+
+第2行第三列生成一个订单号（格式为“NO.: ESQ+年月日+时分”）右对齐
+
+第3行第三列: Eason 0450 790 119
+
+第4行第三列为当天日期（格式“Date: YYYY-MM-DD”） 右对齐
+
+下方一条横线
+
+下方一个2行2列表格：字体加粗，大小14
+
+第一行第一列：“Billto:”+paramsData.Name
+
+第一行第二列：“Tel:”+paramsData.PhoneNumber
+
+第二行第一列：“Email:”+paramsData.Email
+
+第二行第二列：“Address:”+paramsData.Address
+
+
+2.下方是7列表格，行数根据内容自动生成：
+
+表头依次为：“No.”、“Product Name”、“Description”、“Price”、“Qty”、“Line Price”、“Remark”
+列宽如下：
+“No.”： width: 38px
+“Product Name”："width: 155px;"
+“Description”："width: 200px;"
+“Price” "width: 70px;"
+“Qty”："width: 55px;"
+“Line Price”："width: 80px;"
+“Remark”："width: 150px;"
+
+行数随着之前页面选择的内容自动进行调整。所有数值最多显示2位小数。
+第一行：第一列：No.；第二列：Product Name；第三列：Description；第四列：Price；第五列：Qty；第六列：Line Price；第7列：Remark；
+
+下一行到下（i+1）行(let i = 0; i <= 20; i++ )“只渲染有内容的数据行”序号自动递增"
+如果sizechooseData.fenceRows[i].L 有内容则：第一列生成一个数字序号：i+1；第二列：StylechooseData.FenceStyleType；第三列引: StylechooseData.Colortype 和 sizechooseData.fenceRows[i].H 和" x " 和 sizechooseData.fenceRows[i].L+后缀mL；第四列：StylechooseData.FenceStyleValue*StylechooseData.GapValue；第五列计算数值 sizechooseData.fenceRows[i].L * sizechooseData.fenceRows[i].H；第六列:计算第四列x第五列；第7列:StylechooseData.gaptype；
+
+下一行如果 installationChooseData.IngroundPostQty 有内容则第一列：序列号+1； 第二列显示：installationChooseData.IngroundPoststyle；第三列引用之前页面输入的StylechooseData.Colortype 和 "65x65mm" 和 installationChooseData.Ingroundpostheight+后缀mL；第四列installationChooseData.Ingroundpostvalue；第五列 为 installationChooseData.IngroundPostQty；第六列计算第四列x第五列；第7列：With Cap；
+
+下一行如果 installationChooseData.PlatePostQty 有内容则第一列：序列号+1； 第二列显示：installationChooseData.PlatePoststyle；第三列引用之前页面输入的StylechooseData.Colortype 和  "65x65mm" 和 installationChooseData.PlatepostHeight+后缀mL；第四列installationChooseData.PlatePostValue；第五列 为 installationChooseData.PlatePostQty；第六列计算第四列x第五列；第7列：With Cap；
+
+下一行如果 installationChooseData.bigIngroundPostQty 有内容则第一列：序列号+1； 第二列显示：installationChooseData.IngroundPoststyle；第三列引用之前页面输入的StylechooseData.Colortype  和 "76x76mm" 和 installationChooseData.Ingroundpostheight+后缀mL；第四列installationChooseData.bigIngroundPostValue；第五列： 为 installationChooseData.bigIngroundPostQty；第六列计算第四列x第五列；第7列：With Cap；
+
+下一行如果 installationChooseData.bigPlatePostQty 有内容则第一列：序列号+1； 第二列显示：installationChooseData.PlatePoststyle；第三列引用之前页面输入的StylechooseData.Colortype  和 "76x76mm" 和 installationChooseData.PlatepostHeight+后缀mL；第四列installationChooseData.bigPlatePostValue；第五列 为 installationChooseData.bigPlatePostQty；第六列计算第四列x第五列；第7列：With Cap；
+
+下一行如果 installationChooseData.BracketQty 有数值;则第一列显示:序列号+1，第二列显示：Bracket；第三列显示：40x40 ；：第四列显示：paramsData.b1；第五列显示：installationChooseData.BracketQty；第六列计算第四列x第五列；第7列: StylechooseData.Colortype；
+
+下一行到下5行 (let i = 0; i <= 5; i++ )“只渲染有内容的数据行”序号自动递增"
+如果 sizechooseData.smallgateRows[i].L 有内容; 则第一列显示:序列号+1；第二列显示Small gate，第三列显示 sizechooseData.smallgateRows[i].H+后缀（mH） +" X " + sizechooseData.smallgateRows[i].L+后缀（mW）+ StylechooseData.Colortype ,第四列计算：(paramsData.sm1+StylechooseData.FenceStyleValue*StylechooseData.GapValue-paramsData.f1) * sizechooseData.smallgateRows[i].H * sizechooseData.smallgateRows[i].L, 第五列: 1，第六列计算第四列x第五列；第7列:和 StylechooseData.FenceStyleTypename；
+
+下一行如果 installationChooseData.TotalSmallgatePostQty 有数值; 则第一列显示:序列号+1；第二列显示Small gate Post，第三列显示 65x65 1.8mH ,第四列计算：paramsData.p18, 第五列：installationChooseData.TotalSmallgatePostQty，第六列计算第四列x第五列；第7列: StylechooseData.Colortype；
+
+下一行如果 installationChooseData.LockAndHingesQty 有内容;则第一列显示:序列号+1，第二列显示 Lock & Hinges，第三列:installationChooseData.Locktype,第四列显示数值paramsData.l1,第五列数量为 installationChooseData.LockAndHingesQty，第六列计算第四列x第五列；第7列显示 Black；
+
+下一行到下5行 (let i = 0; i <= 5; i++ )“只渲染有内容的数据行”序号自动递增"
+如果 sizechooseData.slidingRows[i].L 有内容;则第一列显示:序列号+1，第二列显示"Sliding gate"，第三列显示: sizechooseData.slidingRows[i].H+后缀（mH） +" X " + sizechooseData.slidingRows[i].L+后缀（mL）+ StylechooseData.Colortype ,第四列计算：（paramsData.s1+StylechooseData.FenceStyleValue*StylechooseData.GapValue-paramsData.f1）*sizechooseData.slidingRows[i].H*sizechooseData.slidingRows[i].L，第五列数值: 1，第六列：计算第四列x第五列；第7列: StylechooseData.FenceStyleTypename；
+
+下一行如果 installationChooseData.GatekitsUPostQty 有内容；则第一列显示:序列号+1，第二列显示 "Gate kits & U-Post"，第三列显示 ”Wheels Catcher Holder etc.“,第四列显示数值paramsData.gku1,第五列:installationChooseData.GatekitsUPostQty，第六列计算第四列x第五列；第7列:StylechooseData.Colortype；
+
+下一行如果 sizechooseData.SlidingGateMotorQty 有内容；则第一列显示:序列号+1，第二列显示 “Sliding Motor"，第三列显示 sizechooseData.SlidingGateMotorType,第四列显示数值sizechooseData.SlidingGateMotorValue,第五列: sizechooseData.SlidingGateMotorQty，第六列计算第四列x第五列；第7列不显示内容；
+
+下一行如果 installationChooseData.SteelTrackQty 有内容；则第一列显示:序列号+1，第二列显示"Steel Track"，第三列显示 1mL,第四列:paramsData.st1,第五列:installationChooseData.SteelTrackQty，第六列计算第四列x第五列；第7列不显示内容；
+
+下一行如果 installationChooseData.ExtraRemoteQty 有内容；则第一列显示:序列号+1，第二列显示"Extra Remote"，第三列： ,第四列:paramsData.rem1,第五列:installationChooseData.ExtraRemoteQty，第六列计算第四列x第五列；第7列不显示内容；
+
+下一行如果 installationChooseData.SteelTrackQty 有内容；则第一列显示:序列号+1，第二列显示"Wireless Keypad"，第三列:, 第四列:paramsData.wkey1,第五列:installationChooseData.WirelessKeypadQty，第六列计算第四列x第五列；第7列不显示内容；
+
+下一行到下5行 (let i = 0; i <= 5; i++ )“只渲染有内容的数据行”序号自动递增"
+如果 sizechooseData.swingRows[i].L 有内容;则第一列显示:序列号+1，第二列显示"Double Swing gate"，第三列显示: sizechooseData.swingRows[i].H+后缀（mH） +" X " + sizechooseData.swingRows[i].L+后缀（mmL）+ StylechooseData.Colortype ,第四列计算：(paramsData.s1+StylechooseData.FenceStyleValue*StylechooseData.GapValue-paramsData.f1)*sizechooseData.swingRows[i].H*sizechooseData.swingRows[i].L,第五列数量为1，第六列计算第四列x第五列；第7列: StylechooseData.FenceStyleTypename；
+
+下一行如果 installationChooseData.HeavydutyHingesQty 有内容；则第一列显示:序列号+1，第二列显示 "Heavy duty Hinges"，第三列显示 ”65x65 hinges“,第四列显示数值paramsData.hh1,第五列:installationChooseData.HeavydutyHingesQty，第六列计算第四列x第五列；第7列:Black；
+
+下一行如果 sizechooseData.SwingarmMotorQty 有内容；则第一列显示:序列号+1，第二列显示 “ Swing Arm Motor"，第三列显示 sizechooseData.SwingarmMotorType,第四列显示数值sizechooseData.SwingarmMotorValue,第五列: sizechooseData.SwingarmMotorQty，第六列计算第四列x第五列；第7列不显示内容；
+
+
+下一行如果 installationChooseData.InstallationFenceQty 有内容；则第一列显示:序列号+1，第二列显示"Fence Installation"，第三列显示 with parts,第四列:StylechooseData.InstallationStyleValue,第五列:installationChooseData.InstallationFenceQty，第六列计算第四列x第五列；第7列不显示内容；
+
+下一行如果 installationChooseData.InstallationSmallGateValue 有内容；则第一列显示:序列号+1，第二列显示"Small gate Installation"，第三列显示 with parts,第四列:paramsData.smi1,第五列:sizechooseData.SmallGateQty，第六列计算第四列x第五列；第7列不显示内容；
+
+下一行如果 installationChooseData.InstallationSlidingGateValue 有内容；则第一列显示:序列号+1，第二列: sizechooseData.InstallationSlidingMotortype，第三列显示 without hard wire from house, 第四列: sizechooseData.InstallationSlidingMotorValue,第五列:sizechooseData.SlidingGateQty，第六列计算第四列x第五列；第7列：Sliding gate；
+
+下一行如果 installationChooseData.InstallationDoubleSwingGateValue 有内容；则第一列显示:序列号+1，第二列: sizechooseData.InstallationArmMotortype，第三列显示 without hard wire from house, 第四列:sizechooseData.InstallationArmMotorValue,第五列: sizechooseData.DoubleSwingGateQty，第六列计算第四列x第五列；第7列：Double Swing gate；
+
+下一行如果 installationChooseData.TrackRoadValue 有内容；则第一列显示:序列号+1，第二列:Track Road Installation，第三列显示 Steel Pipe With Concrete, 第四列:paramsData.tr1,第五列:installationChooseData.TrackRoadValue，第六列计算第四列x第五列；第7列不显示内容；
+
+下一行如果 StylechooseData.ColorValue 有内容；则第一列显示:序列号+1; 第二列显示"Powder Coating"，第三列:StylechooseData.Colortype, 第四列显示数值StylechooseData.ColorValue,第五列数量为installationChooseData.powdercaotingQty，第六列计算第四列x第五列；第7列:空白；
+
+下一行如果 CustomizeTableData.Line1Name 有内容；则第一列显示:序列号+1，第二列:CustomizeTableData.Line1Name，第三列显示 CustomizeTableData.Line1Desc, 第四列:installationChooseData.Line1Price,第五列:CustomizeTableData.Line1Qty，第六列计算第四列x第五列；第7列：CustomizeTableData.Line1Remark；
+下一行 以此类推；
+
+3. 生成一个5行4列的表格，第一列宽250左对齐，第二列宽250，第三列宽150：第二列右对齐，第三列居中对齐
+
+第一列（共五行合并单元格），在第一列插入图片:StylechooseData.selectedPic，图片大小300px，
+第一行第二列显示：NET AMOUNT (AUD): 
+第二行第二列显示：Total GST (AUD): 
+第三行第二列显示：Total Including GST (AUD): 
+第四行第二列显示：Coupon Discount (AUD): 
+第五行第二列显示：Balance Due(AUD):
+这个表格第二列的文字都不要回行
+第一行第三列计算：NETAMOUNT=上面表格里所有 Line Price 相加的总和
+第二行第三列计算：Total GST=NETAMOUNT*0.1 
+第三行第三列计算：TotalIncludingGST=NETAMOUNT*1.1
+第四行第三列计算：-1*CouponDiscount=CustomizeTableData.couponCodeValue * TotalIncludingGST/100
+第五行第三列计算：BalanceDue=TotalIncludingGST+CouponDiscount
+
+4. 生成一个2行2列的表格，带边框
+第一行第一列显示文字：”Remark“ 字体18 加粗
+第一行第二列显示文字，字体13：Please check all quantities, colours, finishes and descriptions are correct. Unit prices are not include GST. All quotes valid 30 days. Freight/delivery do not include rubbish removal or time required for site induction. Property in the goods shall not pass until final payment is received and cleared. Payment must be made within 7 days after project completion. Late payments will be subject to a 1% monthly penalty. Return must be in 7 days. No RETURN for second or clearance stuff.
+第二行第一列显示文字：Payment to:
+第二行第二列显示文字：Name: Estar Pty Ltd
+BSB: 064-793
+A/C: 1028 4966
+
+页面下面有“打印”和“返回”按钮跳转回CustomizeTable.html，方便打印A4报价单或返回填写页
+打印的文件名默认为：paramsData.Name+paramsData.PhoneNumber+$+TotalIncludingGST
+

@@ -19,12 +19,21 @@ const gapOptions = [
   {label:'35–50mm', value:0.85},
   {label:'50mm+', value:0.8},
 ];
+// Gap 选项专用
+const gapOptions_Blade = [
+  {label:'40mm', value:1.2},
+  {label:'60mm', value:1} // 默认选中
+];
+const gapOptions_Batten = [
+  {label:'20mm', value:1.2},
+  {label:'40mm', value:1} // 默认选中
+];
 
 window.renderStyleSection = function(){
   let data = stylechooseDataLoad();
   let selectedPic = data.selectedPic||'';
   let html = `<div class="subtitle">2. Fence Style</div>
-    <div class="flex-row" style="flex-wrap:wrap;gap:16px 15px;">`;
+    <div class="style-grid">`;
   fenceStyles.forEach(fs=>{
     let sel = selectedPic===fs.pic ? ' selected':'';
     html += `<button class="style-btn${sel}" id="stylebtn-${fs.pic}">
@@ -33,28 +42,93 @@ window.renderStyleSection = function(){
   });
   html += `</div>`;
 
-  // Gap
-  let selectedFS = fenceStyles.find(f=>f.pic===selectedPic)||{};
-  if(['H-Slats.jpg','V-Slats.jpg'].includes(selectedPic)){
-  // 如果未选过gap，则默认存为1
- 
+  // 3a. H/V-Slats gap options
+  const gapOptions_HV = [
+    { label: '0mm',        value: 1.2, gaptype: 'No gap' },
+    { label: '5–10mm',     value: 1.1, gaptype: '5–10mm gap' },
+    { label: '10–15mm',    value: 1,   gaptype: '10–15mm gap' }, // 默认
+    { label: '15–25mm',    value: 0.98,gaptype: '15–25mm gap' },
+    { label: '25–35mm',    value: 0.95,gaptype: '25–35mm gap' },
+    { label: '35–50mm',    value: 0.92,gaptype: '35–50mm gap' },
+    { label: '50mm+',      value: 0.90,gaptype: '50mm+ gap' }
+  ];
+  // 3b. Blade
+  const gapOptions_Blade = [
+     { label: '60mm', value: 1,   gaptype: '60mm gap' }, // 默认
+   { label: '40mm', value: 1.2, gaptype: '40mm gap' }
+  ];
+  // 3c. Batten
+  const gapOptions_Batten = [
+     { label: '40mm', value: 1,   gaptype: '40mm gap' }, // 默认
+   { label: '20mm', value: 1.2, gaptype: '20mm gap' }
+  ];
 
- if(!('GapValue' in data) || data.GapValue === undefined || data.GapValue === null || data.GapValue === '') {
-    stylechooseDataSave('GapValue', 1);
-    data.GapValue = 1;
-  }
-else {
-  // Gap 下拉隐藏时，强制 GapValue=1
-  stylechooseDataSave('GapValue', 1);
-}
+  // Horizontal/Vertical Slat
+  if(['H-Slats.jpg','V-Slats.jpg'].includes(selectedPic)){
+    // 获取当前 GapValue，若无则设为1（默认10–15mm gap）
+    let curVal = (typeof data.GapValue !== 'undefined') ? Number(data.GapValue) : 1;
+    // 找到当前选项
+    let curOpt = gapOptions_HV.find(opt => opt.value === curVal) || gapOptions_HV[2];
+    // 若无 gaptype 或值不对，强制设为默认
+    if (!('GapValue' in data) || data.GapValue === undefined || data.GapValue === null || data.GapValue === '') {
+      stylechooseDataSave('GapValue', 1);
+      stylechooseDataSave('gaptype', '10–15mm gap');
+      curVal = 1;
+    } else if (!('gaptype' in data) || data.gaptype !== curOpt.gaptype) {
+      stylechooseDataSave('gaptype', curOpt.gaptype);
+    }
     html += `<div style="margin-top:18px;">
       <span style="font-size:17px;font-weight:600;">Gap (mm)</span>
       <select class="gap-select" id="gapSelect">`;
-    gapOptions.forEach(opt=>{
-      let sel = (data.GapValue==opt.value || (!data.GapValue&&opt.value==1))?'selected':'';
-      html += `<option value="${opt.value}" ${sel}>${opt.label}</option>`;
+    gapOptions_HV.forEach(opt=>{
+      let sel = (curVal==opt.value)?'selected':'';
+      html += `<option value="${opt.value}" data-gaptype="${opt.gaptype}" ${sel}>${opt.label}</option>`;
     });
     html += `</select></div>`;
+  }
+  // Blade
+  else if(selectedPic === 'Blade.jpg'){
+    let curVal = (typeof data.GapValue !== 'undefined') ? Number(data.GapValue) : 1;
+    let curOpt = gapOptions_Blade.find(opt => opt.value === curVal) || gapOptions_Blade[1];
+    if (!('GapValue' in data) || data.GapValue === undefined || data.GapValue === null || data.GapValue === '') {
+      stylechooseDataSave('GapValue', 1);
+      stylechooseDataSave('gaptype', '60mm gap');
+      curVal = 1;
+    } else if (!('gaptype' in data) || data.gaptype !== curOpt.gaptype) {
+      stylechooseDataSave('gaptype', curOpt.gaptype);
+    }
+    html += `<div style="margin-top:18px;">
+      <span style="font-size:17px;font-weight:600;">Gap Between Blades (mm)</span>
+      <select class="gap-select" id="gapSelect">`;
+    gapOptions_Blade.forEach(opt=>{
+      let sel = (curVal==opt.value)?'selected':'';
+      html += `<option value="${opt.value}" data-gaptype="${opt.gaptype}" ${sel}>${opt.label}</option>`;
+    });
+    html += `</select></div>`;
+  }
+  // Batten
+  else if(selectedPic === 'Batten.jpg'){
+    let curVal = (typeof data.GapValue !== 'undefined') ? Number(data.GapValue) : 1;
+    let curOpt = gapOptions_Batten.find(opt => opt.value === curVal) || gapOptions_Batten[1];
+    if (!('GapValue' in data) || data.GapValue === undefined || data.GapValue === null || data.GapValue === '') {
+      stylechooseDataSave('GapValue', 1);
+      stylechooseDataSave('gaptype', '40mm gap');
+      curVal = 1;
+    } else if (!('gaptype' in data) || data.gaptype !== curOpt.gaptype) {
+      stylechooseDataSave('gaptype', curOpt.gaptype);
+    }
+    html += `<div style="margin-top:18px;">
+      <span style="font-size:17px;font-weight:600;">Gap Between Batten (mm)</span>
+      <select class="gap-select" id="gapSelect">`;
+    gapOptions_Batten.forEach(opt=>{
+      let sel = (curVal==opt.value)?'selected':'';
+      html += `<option value="${opt.value}" data-gaptype="${opt.gaptype}" ${sel}>${opt.label}</option>`;
+    });
+    html += `</select></div>`;
+  }
+  // Picket
+  else if(selectedPic === 'Picket.jpg'){
+    html += `<div style="margin-top:18px;font-size:17px;font-weight:600;">Gap Between Pickets is 15mm</div>`;
   }
 
   document.getElementById('styleSection').innerHTML = html;
@@ -69,18 +143,22 @@ else {
       else stylechooseDataSave('NeedBracket', 0);
       if(fs.extra.Need38Bracket) stylechooseDataSave('Need38Bracket', fs.extra.Need38Bracket);
       else stylechooseDataSave('Need38Bracket', 0);
-     // 这里加！！！
-    if (!['H-Slats.jpg', 'V-Slats.jpg'].includes(fs.pic)) {
-      stylechooseDataSave('GapValue', 1);
-    }
-
-     window.renderStyleSection(); window.renderColorSection();
+      // 只在 H/V/Blade/Batten 时保存对应 GapValue, 其他时恢复默认
+      if (!['H-Slats.jpg', 'V-Slats.jpg','Blade.jpg','Batten.jpg'].includes(fs.pic)) {
+        stylechooseDataSave('GapValue', 1);
+        stylechooseDataSave('gaptype', '');
+      }
+      window.renderStyleSection(); window.renderColorSection();
     };
   });
 
   if(document.getElementById('gapSelect')){
     document.getElementById('gapSelect').onchange = function(){
-      stylechooseDataSave('GapValue', this.value);
+      let val = Number(this.value);
+      let opt = this.selectedOptions[0];
+      let gaptype = opt.getAttribute('data-gaptype') || '';
+      stylechooseDataSave('GapValue', val);
+      stylechooseDataSave('gaptype', gaptype);
     };
   }
 }

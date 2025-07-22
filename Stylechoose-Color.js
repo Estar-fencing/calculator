@@ -87,7 +87,7 @@ document.getElementById('btnBack').onclick = ()=>{
 };
 document.getElementById('btnNext').onclick = ()=>{
   let d = stylechooseDataLoad();
-  if(d.FenceStyleType==='Pool Fencing') location.href="Poolsizechoose.html";
+  if(d.FenceStyleType==='Pool Fencing') location.href="poolsizechoose.html";
   else location.href="sizechoose.html";
 };
 

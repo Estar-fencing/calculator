@@ -1,0 +1,129 @@
+做一个英文界面的网页（用户选择与输入），内容如下：
+
+生成完整版代码 html 格式，全部 JS 代码，可以本地演示的，生成6个文件；1个html和3个Js分开,
+第一个Stylechoose-Installation.js文件：1. 安装样式（Installation Style）；
+第二个Stylechoose-Style.js文件：2. 围栏样式（Fence Style）3. 缝隙选项（Gap）；
+第三个Stylechoose-Color.js文件：4. 颜色选择（Color）等 剩余部分；
+
+页面名字：Stylechoose.html，图片统一存放于同一目录；
+所有选中和输入的数据保存到 localStorage 的 StylechooseData 对象中，供其他页面调用。
+
+//涉及到的参数名字：InstallationStyleValue，PostType，FenceStyleValue，FenceStyleType，selectedPic，GapValue，ColorValue，Colortype
+
+如果 localStorage 已有 StylechooseData 内容，则自动填充到输入框。
+
+其他本地参数读取逻辑完全一样。
+
+标题：eStar Fencing Quotation （标题颜色淡蓝色）
+
+1. 安装样式（Installation Style）
+显示一个标签“Installation Style”在页面的第一行。
+
+标签下方横向一行展示3个图片按钮（图片按钮宽高大约 130px，图片宽高大约 120px在框内最上面贴边,文字在框内最下面贴边）：
+
+postfence.jpg，按钮上显示“InGround Post”（灰色小字体），选择后值InstallationStyleValue=paramsData.I1，InGroundPostType=1, PlatePostType=0，SmallgatePost=0；
+platefence.jpg，按钮上显示“Plate Post”（灰色小字体），选择后值InstallationStyleValue=paramsData.I2，PlatePostType=1, InGroundPostType=0，SmallgatePost=0；
+insetfence.jpg，按钮上显示“No Post”（灰色小字体），选择后值InstallationStyleValue=paramsData.I3， SmallgatePost=1，PlatePostType=0，InGroundPostType=0；
+
+点击任何按钮，该按钮生成橘黄色外边框，其他按钮取消边框。
+
+2. 围栏样式（Fence Style）
+显示一个标签“Fence Style”。
+
+标签下方横向展示8个图片按钮（图片按钮宽高大约 120px，图片宽高大约 100px在框内最上面贴边,文字在框内最下面贴边），内容分别为：
+
+Poolfence.jpg，显示“Pool Fence”，选择后值FenceStyleValue=paramsData.fp, FenceStyleType=Pool Fencing，Need38Bracket=1,  selectedPic = "Poolfence.jpg"
+
+H-Slats.jpg，显示“H-Slats”，选择后值FenceStyleValue=paramsData.f1, FenceStyleType=Horizontal Slats Fence，FenceStyleTypename=Horizontal Slats, selectedPic = "H-Slats.jpg"
+
+V-Slats.jpg，显示“V-Slats”，选择后值FenceStyleValue=paramsData.f2; FenceStyleType=Vertical Slats Fence, FenceStyleTypename=Vertical Slats, selectedPic = "V-Slats.jpg"
+
+Blade.jpg，显示“Blade”，选择后值FenceStyleValue=paramsData.f3;  FenceStyleType=Blade Fence, NeedBracket=1, FenceStyleTypename=Blade, selectedPic = "Blade.jpg"
+
+Batten.jpg，显示“Batten”，选择后值FenceStyleValue=paramsData.f4;  FenceStyleType=Batten Fence, NeedBracket=1, FenceStyleTypename=Batten, selectedPic = "Batten.jpg"
+
+Picket.jpg，显示“Picket”，选择后值FenceStyleValue=paramsData.f5;  FenceStyleType=Picket Fence, NeedBracket=1, FenceStyleTypename=Picket, selectedPic = "Picket.jpg"
+
+Louver.jpg，显示“Louver”，选择后值FenceStyleValue=paramsData.f6;  FenceStyleType=Louver Fence, NeedBracket=1, FenceStyleTypename=Louver, selectedPic = "Louver.jpg"
+
+45Blade.jpg，显示“45 Blade”，选择后值FenceStyleValue=paramsData.f6;  FenceStyleType=45 Blade Fence, selectedPic = FenceStyleTypename=45 Blade,  45Blade.jpg
+
+点击任何按钮，该按钮生成橘黄色外边框，其他按钮取消边框，只能选一个。没有选中的恢复默认值0
+同时保存图片到localStorage,格式为：selectedPic = "H-Slats.jpg"
+
+如果选中H-Slats或V-Slats，下方自动出现Gap（缝隙）选择行，否则不显示Gap选项。
+
+3a. 缝隙选项（Gap）
+只有在围栏样式为H-Slats或V-Slats时才显示本行，否则隐藏。
+
+显示一个下拉菜单，标题为Gap（mm）。
+
+下拉菜单包含以下选项，每个选项有对应的GapValue数值（用于后续计算）：
+
+选中“0mm”时：GapValue=1.2; gaptype=No gap
+
+选中“5–10mm”时：GapValue=1.1; gaptype=5–10mm gap
+
+选中“10–15mm”时：GapValue=1; gaptype=10–15mm gap（默认选中，并自动存储GapValue=1）
+
+选中“15–25mm”时：GapValue=0.98; gaptype=15–25mm gap
+
+选中“25–35mm”时：GapValue=0.95; gaptype=25–35mm gap
+
+选中“35–50mm”时：GapValue=0.92; gaptype=35–50mm” gap
+
+选中“50mm+”时：GapValue=0.90; gaptype=50mm+ gap
+
+Fence Style变化到非H/V-Slats时自动隐藏；并恢复默认值：GapValue=1
+储存 GapValue 到 localStorage（ gap下拉框如果没值就自动存1）
+
+3b. 缝隙选项（Gap）
+只有在围栏样式为Blade时才显示本行，否则隐藏。
+
+显示一个下拉菜单，标题为Gap Between Blades（mm）。
+
+下拉菜单包含以下选项，每个选项有对应的GapValue数值（用于后续计算）：
+
+选中“60mm”时：GapValue=1; gaptype=60mm gap（默认选中，并自动存储GapValue=1）
+
+选中“40mm”时：GapValue=1.2; gaptype=40mm gap
+
+
+3c. 缝隙选项（Gap）
+只有在围栏样式为Batten时才显示本行，否则隐藏。
+
+显示一个下拉菜单，标题为Gap Between Batten（mm）。
+
+下拉菜单包含以下选项，每个选项有对应的GapValue数值（用于后续计算）：
+
+选中“40mm”时：GapValue=1; gaptype=40mm gap（默认选中，并自动存储GapValue=1）
+
+选中“20mm”时：GapValue=1.2; gaptype=20mm gap
+
+4. 颜色选择（Color）
+展示一个标签“Color”，下方横向一行展示4个按钮，分别为：
+
+“Black”，背景色为黑色; ColorValue=0，Colortype=Black
+
+“Monument”，值ColorValue=0，背景色为深灰色, Colortype=Monument
+
+“White”，值为ColorValue=paramsData.pc1，背景色为白色，下面显示一行小字：extra $45/SM, Colortype = White
+
+“Customize”，值ColorValue=paramsData.pc1，背景色为彩虹渐变,下面显示一行小字：extra $45/SM, 
+选中这个“Customize”后在这个按钮的外部后面同一行增加一个框可以输入文字（同时这个按钮上的文字变成所写的文字）Colortype = 输入框输入的文字
+
+颜色按钮为单选，点击任何按钮，该按钮生成橘黄色外边框，其他按钮取消边框。
+需让点击 .color-btn 内任意位置都能高亮整个按钮，
+方法：用事件委托/冒泡，或者让所有子元素点击也触发父级按钮的 onclick。
+
+有3个按钮：  一个“Default” 淡灰色按钮，下一步按钮（Next）蓝色按钮，和 返回按钮（Back）蓝色按钮，3按钮在页面中间底部
+
+如果FenceStyleType的值是 Pool Fencing 则 下一步按钮（Next）点击后跳转到页面poolsizechoose.html  和 返回按钮（Back）点击后跳转到页面params.html  ；保存所有内容，重新打开页面的时候记录之前输入过的内容。
+2个按钮在页面中间底部，颜色都为蓝色
+
+FenceStyleType的值如果不是 Pool Fencing 则下一步按钮（Next）点击后跳转到页面sizechoose.html  和 返回按钮（Back）点击后跳转到页面params.html  ；保存所有内容，重新打开页面的时候记录之前输入过的内容。
+
+点击 “Default” 后 本页所有的内容都恢复到默认值。
+
+
+

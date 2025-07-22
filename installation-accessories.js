@@ -41,12 +41,12 @@ let autoHeight = fenceHeight + 0.6;
 
   html += `
     <div class="access-item">
-      <span class="access-label">Inground 65x65 Post Qty:</span>
+      <span class="access-label">Inground 65x65 Post Qty: &nbsp;&nbsp;</span>
       <input type="number" min="0" step="1" id="IngroundPostQty" class="access-input" value="${curQty}">
       <span class="default-tag">Default: ${defQty}</span>
     </div>
     <div class="access-item">
-      <span class="access-label" style="font-weight:400;">Inground Post Height:</span>
+      <span class="access-label" style="font-weight:380;">Inground Post Height:&nbsp;&nbsp;&nbsp;&nbsp;</span>
       <select id="Ingroundpostheight" class="select-height">
         ${heights.map(h=>`<option value="${h}" ${h===postHeight?'selected':''}>${h}m</option>`).join('')}
       </select>
@@ -146,7 +146,7 @@ if (sizechooseData.TotalFencePanelQty) {
     sync('BracketQty', curQty);
     html += `
       <div class="access-item" style="display:flex;align-items:center;gap:10px;">
-        <span class="access-label">40x40 Bracket Qty:</span>
+        <span class="access-label">40x40 Bracket Qty:&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <input type="number"
                min="0"
                step="1"
@@ -178,15 +178,15 @@ if (sizechooseData.TotalFencePanelQty) {
     sync('TotalSmallgatePostQty', 0);
   }
 
-  // 2.5a Lock & Hinges type
+  // 2.5a Small gate Lock type
   if (sizechooseData.SmallGateQty > 0) {
     let locktype = data.Locktype || 'Handle Lock';
     sync('Locktype', locktype);
     html += `
       <div class="access-item">
-        <span class="access-label">Lock & Hinges Type:</span>
-        <button type="button" class="locktype-btn${locktype==='Handle Lock'?' selected':''}" data-lock="Handle Lock">Handle Lock</button>
-        <button type="button" class="locktype-btn${locktype==='Pin Code Lock'?' selected':''}" data-lock="Pin Code Lock">Pin Code Lock</button>
+        <span class="access-label">Small gate Lock type:&nbsp;&nbsp;</span>
+        <button type="button" class="locktype-btn${locktype==='Handle Lock'?' selected':''}" data-lock="Handle Lock">Handle</button>
+        <button type="button" class="locktype-btn${locktype==='Pin Code Lock'?' selected':''}" data-lock="Pin Code Lock">Pin Code</button>
       </div>
     `;
   } else {
@@ -199,7 +199,7 @@ if (sizechooseData.TotalFencePanelQty) {
     sync('LockAndHingesQty', qty);
     html += `
       <div class="access-item">
-        <span class="access-label">Lock & Hinge Qty:</span>
+        <span class="access-label">Lock & Hinge Qty:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <input type="number" min="0" step="1" id="LockAndHingesQty" class="access-input" value="${qty}">
         <span class="default-tag">Default: ${sizechooseData.SmallGateQty||1}</span>
       </div>
@@ -231,7 +231,7 @@ if (sizechooseData.TotalFencePanelQty) {
     sync('SteelTrackQty', curQty);
     html += `
       <div class="access-item">
-        <span class="access-label">Steel Track Qty:</span>
+        <span class="access-label">Steel Track Qty:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <input type="number" min="0" step="1" id="SteelTrackQty" class="access-input" value="${curQty}">
         <span class="default-tag">Default: ${defQty}</span>
       </div>
@@ -247,7 +247,7 @@ if (sizechooseData.TotalFencePanelQty) {
     sync('HeavydutyHingesQty', curQty);
     html += `
       <div class="access-item">
-        <span class="access-label">Heavy Duty Hinge Qty:</span>
+        <span class="access-label">Heavy Duty Hinge Qty:&nbsp;</span>
         <input type="number" min="0" step="1" id="HeavydutyHingesQty" class="access-input" value="${curQty}">
         <span class="default-tag">Default: ${defQty}</span>
       </div>
@@ -285,7 +285,7 @@ if (sizechooseData.SlidingGateQty > 0) {
     sync('WirelessKeypadQty', curQty);
     html += `
       <div class="access-item" style="display:flex;align-items:center;gap:10px;">
-        <span class="access-label">Wireless Keypad Qty:</span>
+        <span class="access-label">Wireless Keypad Qty:&nbsp;</span>
         <input type="number" 
                min="0" 
                step="1" 
@@ -307,7 +307,7 @@ if (sizechooseData.SlidingGateQty > 0) {
     sync('MailBoxQty', curQty);
     html += `
       <div class="access-item" style="display:flex;align-items:center;gap:10px;">
-        <span class="access-label">Mail Box Qty:</span>
+        <span class="access-label">Mail Box Qty:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
         <input type="number" 
                min="0" 
                step="1" 

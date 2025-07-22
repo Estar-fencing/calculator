@@ -8,12 +8,19 @@ function createTableRow(cells, isHeader = false) {
   return '<tr>' + cells.map(c => `<${tag} style="${c.style||''}">${c.value==null?'':c.value}</${tag}>`).join('') + '</tr>';
 }
 
+function formatQty(num) {
+  if (typeof num !== 'number' || isNaN(num)) return '';
+  // 如果是整数，直接输出；否则保留2位小数
+  return Number.isInteger(num) ? num.toString() : num.toFixed(2);
+}
+
+
 function renderQuotationTable() {
   let tableRows = [];
   let seq = 1;
   // 列宽设置
   const widths = [
-    '38px', '155px', '200px', '70px', '55px', '80px', '150px'
+    '30px', '155px', '200px', '60px', '45px', '70px', '188px'
   ];
 
   // 1. 表头
@@ -39,17 +46,17 @@ function renderQuotationTable() {
         let linePrice = price * qty;
         tableRows.push(
           createTableRow([
-            {value: seq++},
+            {value: seq++, style:`text-align:center;`},
             {value: StylechooseData.FenceStyleType || ''},
     {value:
       ((StylechooseData.Colortype || '') +
        (row.H ? ' ' + row.H + 'mH' : '') +
        (row.L ? '，' + row.L + 'mL' : '')
       ).trim()
-    },            {value: formatNum(price)},
-            {value: formatNum(qty)},
-            {value: formatNum(linePrice)},
-            {value: 'Price Per SQM'}
+    },            {value: formatNum(price),  style:`text-align:center;`},
+            {value: formatQty(qty), style:`text-align:center;`},
+            {value: formatNum(linePrice), style:`text-align:center;`},
+            {value: [StylechooseData.gaptype,  'AUD/㎡'].filter(Boolean).join(', ')}
           ])
         );
       }
@@ -63,12 +70,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: installationChooseData.IngroundPoststyle || 'Inground Post'},
         {value: [StylechooseData.Colortype, '65x65mm x ', installationChooseData.Ingroundpostheight ? installationChooseData.Ingroundpostheight + 'mL' : ''].filter(Boolean).join(' ')},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: 'With Cap'}
       ])
     );
@@ -81,12 +88,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: installationChooseData.PlatePoststyle || 'Plate Post'},
         {value: [StylechooseData.Colortype, '65x65mm x ', installationChooseData.PlatePostHeight ? installationChooseData.PlatePostHeight + 'mL' : ''].filter(Boolean).join(' ')},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: 'With Cap'}
       ])
     );
@@ -99,12 +106,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: installationChooseData.IngroundPoststyle || 'Inground Post'},
         {value: [StylechooseData.Colortype, '76x76mm x ', installationChooseData.Ingroundpostheight ? installationChooseData.Ingroundpostheight + 'mL' : ''].filter(Boolean).join(' ')},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: 'With Cap'}
       ])
     );
@@ -117,12 +124,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: installationChooseData.PlatePoststyle || 'Plate Post'},
         {value: [StylechooseData.Colortype, '76x76mm x ', installationChooseData.PlatePostHeight ? installationChooseData.PlatePostHeight + 'mL' : ''].filter(Boolean).join(' ')},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: 'With Cap'}
       ])
     );
@@ -135,12 +142,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: 'Bracket'},
         {value: '40x40'},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: StylechooseData.Colortype || ''}
       ])
     );
@@ -151,18 +158,18 @@ function renderQuotationTable() {
     for (let i = 0; i < sizechooseData.smallgateRows.length; i++) {
       let row = sizechooseData.smallgateRows[i];
       if (row.L) {
-        let price = paramsData.sm1 * row.H * row.L;
+        let price = (paramsData.sm1+StylechooseData.FenceStyleValue*StylechooseData.GapValue-paramsData.f1) * row.H * row.L;
         let qty = 1;
         let linePrice = price * qty;
         tableRows.push(
           createTableRow([
-            {value: seq++},
+            {value: seq++, style:`text-align:center;`},
             {value: 'Small gate'},
             {value: [StylechooseData.Colortype, row.H ? row.H + 'mH x ' : '', row.L ? row.L + 'mW' : ''].join(' ')},
-            {value: formatNum(price)},
-            {value: formatNum(qty)},
-            {value: formatNum(linePrice)},
-            {value: [StylechooseData.FenceStyleTypename].filter(Boolean).join(' ')}
+            {value: formatNum(price),  style:`text-align:center;`},
+            {value: formatQty(qty), style:`text-align:center;`},
+            {value: formatNum(linePrice), style:`text-align:center;`},
+            {value: [StylechooseData.FenceStyleTypename, StylechooseData.gaptype].filter(Boolean).join(' ')}
           ])
         );
       }
@@ -176,12 +183,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: 'Small gate Post'},
         {value: '65x65 1.8mH'},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: StylechooseData.Colortype || ''}
       ])
     );
@@ -194,12 +201,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: 'Lock & Hinges'},
         {value: installationChooseData.Locktype || ''},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: 'Black'}
       ])
     );
@@ -210,18 +217,18 @@ function renderQuotationTable() {
     for (let i = 0; i < sizechooseData.slidingRows.length; i++) {
       let row = sizechooseData.slidingRows[i];
       if (row.L) {
-        let price = paramsData.s1 * row.H * row.L;
+        let price = (paramsData.s1+StylechooseData.FenceStyleValue*StylechooseData.GapValue-paramsData.f1) * row.H * row.L;
         let qty = 1;
         let linePrice = price * qty;
         tableRows.push(
           createTableRow([
-            {value: seq++},
+            {value: seq++, style:`text-align:center;`},
             {value: 'Sliding gate'},
             {value: [StylechooseData.Colortype, row.H ? row.H + 'mH x ' : '', row.L ? row.L + 'mL' : ''].join(' ')},
-            {value: formatNum(price)},
-            {value: formatNum(qty)},
-            {value: formatNum(linePrice)},
-            {value: [StylechooseData.FenceStyleTypename].filter(Boolean).join(' ')}
+            {value: formatNum(price),  style:`text-align:center;`},
+            {value: formatQty(qty), style:`text-align:center;`},
+            {value: formatNum(linePrice), style:`text-align:center;`},
+            {value: [StylechooseData.FenceStyleTypename, StylechooseData.gaptype].filter(Boolean).join(' ')}
           ])
         );
       }
@@ -235,12 +242,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: 'Gate kits & U-Post'},
         {value: 'Wheels Catcher Holder etc.'},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: StylechooseData.Colortype || ''}
       ])
     );
@@ -253,12 +260,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: 'Sliding Motor'},
         {value: sizechooseData.SlidingGateMotorType || ''},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: ''}
       ])
     );
@@ -271,12 +278,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: 'Steel Track'},
         {value: '1mL'},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: ''}
       ])
     );
@@ -289,12 +296,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: 'Extra Remote'},
         {value: ' '},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: ''}
       ])
     );
@@ -307,12 +314,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: 'Wireless Keypad'},
         {value: ' '},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: ''}
       ])
     );
@@ -324,18 +331,18 @@ function renderQuotationTable() {
     for (let i = 0; i < sizechooseData.swingRows.length; i++) {
       let row = sizechooseData.swingRows[i];
       if (row.L) {
-        let price = paramsData.s1 * row.H * row.L; // 注意你的算法，如果实际为paramsData.s1*row.H*row.L则请替换
+        let price = (paramsData.s1+StylechooseData.FenceStyleValue*StylechooseData.GapValue-paramsData.f1) * row.H * row.L; // 注意你的算法，如果实际为paramsData.s1*row.H*row.L则请替换
         let qty = 1;
         let linePrice = price * qty;
         tableRows.push(
           createTableRow([
-            {value: seq++},
+            {value: seq++, style:`text-align:center;`},
             {value: 'Double Swing gate'},
             {value: [StylechooseData.Colortype, row.H ? row.H + 'mH x ' : '', row.L ? row.L + 'mL' : ''].join(' ')},
-            {value: formatNum(price)},
-            {value: formatNum(qty)},
-            {value: formatNum(linePrice)},
-            {value: [StylechooseData.FenceStyleTypename].filter(Boolean).join(' ')}
+            {value: formatNum(price),  style:`text-align:center;`},
+            {value: formatQty(qty), style:`text-align:center;`},
+            {value: formatNum(linePrice), style:`text-align:center;`},
+            {value: [StylechooseData.FenceStyleTypename, StylechooseData.gaptype].filter(Boolean).join(' ')}
           ])
         );
       }
@@ -349,12 +356,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: 'Heavy duty Hinges'},
         {value: '65x65 hinges'},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: 'Black'}
       ])
     );
@@ -367,12 +374,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: 'Swing Arm Motor'},
         {value: sizechooseData.SwingarmMotorType || ''},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: ''}
       ])
     );
@@ -385,12 +392,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: 'Mail Box'},
         {value: ' '},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: ''}
       ])
     );
@@ -404,12 +411,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: 'Fence Installation'},
         {value: 'with parts'},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: 'Price Per Panel'}
       ])
     );
@@ -422,12 +429,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: 'Small gate Installation'},
         {value: 'with parts'},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: ''}
       ])
     );
@@ -440,12 +447,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: sizechooseData.InstallationSlidingMotortype || 'Sliding gate Installation'},
         {value: 'without hard wire from house'},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: 'Sliding gate'}
       ])
     );
@@ -458,12 +465,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: sizechooseData.InstallationArmMotortype || 'Double Swing gate Installation'},
         {value: 'without hard wire from house'},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: 'Double Swing gate'}
       ])
     );
@@ -476,12 +483,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: 'Track Road Installation'},
         {value: 'Steel Pipe With Concrete'},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: 'Price Per Meter'}
       ])
     );
@@ -494,12 +501,12 @@ function renderQuotationTable() {
     let linePrice = price * qty;
     tableRows.push(
       createTableRow([
-        {value: seq++},
+        {value: seq++, style:`text-align:center;`},
         {value: 'Powder Coating'},
         {value: StylechooseData.Colortype || ''},
-        {value: formatNum(price)},
-        {value: formatNum(qty)},
-        {value: formatNum(linePrice)},
+        {value: formatNum(price),  style:`text-align:center;`},
+        {value: formatQty(qty), style:`text-align:center;`},
+        {value: formatNum(linePrice), style:`text-align:center;`},
         {value: 'Price Per SQM'}
       ])
     );
@@ -516,11 +523,11 @@ if (CustomizeTableData.rows && Array.isArray(CustomizeTableData.rows)) {
       let remark = line.Remark || '';
       tableRows.push(
         createTableRow([
-          {value: seq++},
+          {value: seq++, style:`text-align:center;`},
           {value: line.Name},
           {value: desc},
-          {value: formatNum(price)},
-          {value: formatNum(qty)},
+          {value: formatNum(price),  style:`text-align:center;`},
+          {value: formatQty(qty), style:`text-align:center;`},
           {value: formatNum(price * qty)},
           {value: remark}
         ])
@@ -537,11 +544,11 @@ if (CustomizeTableData.rows && Array.isArray(CustomizeTableData.rows)) {
       let remark = CustomizeTableData[`Line${i}Remark`] || '';
       tableRows.push(
         createTableRow([
-          {value: seq++},
+          {value: seq++, style:`text-align:center;`},
           {value: name},
           {value: desc},
-          {value: formatNum(price)},
-          {value: formatNum(qty)},
+          {value: formatNum(price),  style:`text-align:center;`},
+          {value: formatQty(qty), style:`text-align:center;`},
           {value: formatNum(price * qty)},
           {value: remark}
         ])

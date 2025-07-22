@@ -18,11 +18,11 @@ function renderHeightSection(data,sync){
   let HeightValueA=data.HeightValueA||1.8;
   dom.innerHTML=`
   <div class="section">
-    <div class="subtitle">1. Height for fence and gates</div>
+    <div class="subtitle">1. Height for fence and gates（m）</div>
     <div class="flex-row">
-      <button type="button" class="btn-toggle${useSame?' selected':''}" id="sameBtn">Same Height (m)</button>
+      <button type="button" class="btn-toggle${useSame?' selected':''}" id="sameBtn">Same Height</button>
       <input type="text" inputmode="decimal" class="input-num" id="HeightValueA" style="margin-left:8px;${useSame?'':'display:none'}" value="${HeightValueA}">
-      <button type="button" class="btn-toggle${!useSame?' selected':''}" id="diffBtn">Different Height (m)</button>
+      <button type="button" class="btn-toggle${!useSame?' selected':''}" id="diffBtn">Different Height</button>
     </div>
   </div>
   `;
@@ -72,16 +72,17 @@ window.renderSlidingMotorSection=function(data,sync){
   const paramsData=JSON.parse(localStorage.getItem('paramsData')||'{}');
   let selected=data.SlidingGateMotorType||'';
   let slidingGateQty=data.SlidingGateQty||0;
-  let html=`
+let html=`
   <div class="section">
-    <div class="motor-row">
-      <span class="motor-label">Sliding Gate Motor</span>
+    <div class="motor-label" style="margin-bottom:7px;">Sliding Gate Motor</div>
+    <div class="motor-btn-row">
       <button type="button" class="motor-btn${selected==='240V Motor'?' selected':''}" id="mtr1">240V Motor</button>
       <button type="button" class="motor-btn${selected==='Solar Motor'?' selected':''}" id="mtr2">Solar Motor</button>
       <button type="button" class="motor-btn${selected==='No Motor'?' selected':''}" id="mtr3">No Motor</button>
     </div>
   </div>
-  `;
+`;
+
   section.innerHTML=html;
   document.getElementById('mtr1').onclick=function(){
     sync('SlidingGateMotorValue',paramsData.moi1||0);
@@ -115,16 +116,16 @@ window.renderSwingMotorSection=function(data,sync){
   const paramsData=JSON.parse(localStorage.getItem('paramsData')||'{}');
   let selected=data.SwingarmMotorType||'';
   let qty=data.DoubleSwingGateQty||0;
-  let html=`
+let html=`
   <div class="section">
-    <div class="motor-row">
-      <span class="motor-label">Swing-arm Motor</span>
+    <div class="motor-label" style="margin-bottom:7px;">Swing-arm Motor</div>
+    <div class="motor-btn-row">
       <button type="button" class="motor-btn${selected==='240V Arm Motor'?' selected':''}" id="swm1">240V Arm Motor</button>
       <button type="button" class="motor-btn${selected==='Solar Arm Motor'?' selected':''}" id="swm2">Solar Arm Motor</button>
       <button type="button" class="motor-btn${selected==='No Motor'?' selected':''}" id="swm3">No Motor</button>
     </div>
   </div>
-  `;
+`;
   section.innerHTML=html;
   document.getElementById('swm1').onclick=function(){
     sync('SwingarmMotorValue',paramsData.am1||0);
